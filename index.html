@@ -405,22 +405,18 @@ function playNote(){
     index++;
 }
 
-async function toggleMusic(){
-    const btn=document.getElementById("musicBtn");
-
-    if(!playing){
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        audio = audio || new AudioContext();
-        await audio.resume();
-
-        playing=true;
-        playNote();
-        timer=setInterval(playNote,650);
-        btn.innerHTML="🔇 Matikan Musik";
-    }else{
-        playing=false;
-        clearInterval(timer);
-        btn.innerHTML="🎵 Putar Musik";
+<div class="music-player">
+  <p>🎵 Our Special Song</p>
+  <iframe
+    width="280"
+    height="158"
+    src="https://www.youtube.com/embed/V_T277c9klU"
+    title="I Lay My Love on You - Westlife"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen>
+  </iframe>
+</div>
     }
 }
 
