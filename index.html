@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -13,9 +14,9 @@
 }
 
 body {
-    background: linear-gradient(180deg,#160b29,#492044,#9b426c);
+    background: linear-gradient(180deg, #160b29, #492044, #9b426c);
     color: white;
-    font-family: Georgia,serif;
+    font-family: Georgia, serif;
     min-height: 100vh;
     overflow-x: hidden;
 }
@@ -27,14 +28,13 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 25px 15px;
+    padding: 30px 15px;
     position: relative;
-    overflow: hidden;
 }
 
 h1 {
     color: #ffc1dc;
-    font-size: clamp(27px,7vw,43px);
+    font-size: clamp(27px, 7vw, 43px);
     text-shadow: 0 0 20px #ff4d9c;
     animation: glow 2s infinite alternate;
 }
@@ -54,9 +54,9 @@ h1 {
 
 .tree {
     width: 300px;
-    height: 320px;
+    height: 300px;
     position: relative;
-    margin: 20px auto 0;
+    margin: 20px auto;
 }
 
 .trunk {
@@ -64,18 +64,18 @@ h1 {
     bottom: 0;
     left: 143px;
     width: 16px;
-    height: 170px;
-    background: linear-gradient(90deg,#63331f,#bd8050,#63331f);
+    height: 150px;
+    background: linear-gradient(90deg, #63331f, #bd8050, #63331f);
     border-radius: 20px;
     animation: grow 2s forwards;
 }
 
 .branch {
     position: absolute;
-    bottom: 110px;
+    bottom: 100px;
     left: 150px;
     width: 8px;
-    height: 100px;
+    height: 90px;
     background: #a86d43;
     border-radius: 20px;
     transform-origin: bottom;
@@ -110,12 +110,12 @@ h1 {
 }
 
 .photo-frame {
-    margin-top: 20px;
+    margin-top: 10px;
     width: 190px;
-    height: 190px;
+    height: 160px;
     border: 3px solid #ffb7d7;
     border-radius: 20px;
-    background: linear-gradient(145deg,#71365e,#351a42);
+    background: linear-gradient(145deg, #71365e, #351a42);
     box-shadow: 0 0 25px #ff6da9;
     display: flex;
     flex-direction: column;
@@ -142,11 +142,11 @@ h1 {
 }
 
 button {
-    margin-top: 20px;
+    margin-top: 18px;
     padding: 12px 25px;
     border: none;
     border-radius: 30px;
-    background: linear-gradient(135deg,#ff80b7,#c43c80);
+    background: linear-gradient(135deg, #ff80b7, #c43c80);
     color: white;
     font-size: 15px;
     cursor: pointer;
@@ -188,6 +188,17 @@ button:active {
     line-height: 1.8;
 }
 
+#musicPlayer {
+    display: none;
+    margin-top: 20px;
+    width: 100%;
+}
+
+#musicPlayer iframe {
+    max-width: 100%;
+    border-radius: 12px;
+}
+
 .floating {
     position: fixed;
     top: -30px;
@@ -209,7 +220,7 @@ button:active {
 
 @keyframes grow {
     from { height: 0; }
-    to { height: 170px; }
+    to { height: 150px; }
 }
 
 @keyframes beat {
@@ -254,9 +265,7 @@ button:active {
         <div class="branch left"></div>
         <div class="branch right"></div>
         <div class="branch middle"></div>
-
         <div class="leaves" id="leaves"></div>
-
         <div class="ground"></div>
     </div>
 
@@ -282,6 +291,22 @@ button:active {
     <button onclick="toggleMusic()" id="musicBtn">
         🎵 Putar Musik
     </button>
+
+    <div id="musicPlayer">
+        <p style="margin-bottom:10px;color:#ffd6e9;">
+            🎶 I Lay My Love on You - Westlife
+        </p>
+
+        <iframe
+            id="youtubeMusic"
+            width="280"
+            height="158"
+            src=""
+            title="I Lay My Love on You - Westlife"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            allowfullscreen>
+        </iframe>
+    </div>
 
 </div>
 
@@ -313,124 +338,89 @@ button:active {
 
 <script>
 
-// Membuat daun pohon berbentuk love
+// Membuat daun pohon berbentuk hati
 const leaves = document.getElementById("leaves");
 
 const positions = [
-[130,10],[75,30],[180,25],[35,65],
-[105,65],[205,65],[65,105],[150,105],
-[235,105],[110,145],[180,145],[140,175],
-[20,105],[250,55],[95,5],[200,5],
-[45,140],[230,150],[155,45]
+    [130,10],[75,30],[180,25],[35,65],
+    [105,65],[205,65],[65,105],[150,105],
+    [235,105],[110,145],[180,145],[140,175],
+    [20,105],[250,55],[95,5],[200,5],
+    [45,140],[230,150],[155,45]
 ];
 
-positions.forEach((pos,i)=>{
+positions.forEach((pos, i) => {
     const leaf = document.createElement("div");
     leaf.className = "leaf";
-    leaf.innerHTML = ["❤️","💕","💗","💖"][i%4];
-    leaf.style.left = pos[0]+"px";
-    leaf.style.top = pos[1]+"px";
-    leaf.style.animationDelay = (i*.15)+"s";
+    leaf.innerHTML = ["❤️","💕","💗","💖"][i % 4];
+    leaf.style.left = pos[0] + "px";
+    leaf.style.top = pos[1] + "px";
+    leaf.style.animationDelay = (i * .15) + "s";
     leaves.appendChild(leaf);
 });
 
 // Membuat bintang
-for(let i=0;i<60;i++){
+for (let i = 0; i < 60; i++) {
     const star = document.createElement("div");
     star.className = "star";
     star.innerHTML = "✦";
-    star.style.left = Math.random()*100+"vw";
-    star.style.top = Math.random()*100+"vh";
-    star.style.fontSize = (5+Math.random()*10)+"px";
-    star.style.animationDelay = Math.random()*2+"s";
+    star.style.left = Math.random() * 100 + "vw";
+    star.style.top = Math.random() * 100 + "vh";
+    star.style.fontSize = (5 + Math.random() * 10) + "px";
+    star.style.animationDelay = Math.random() * 2 + "s";
     document.body.appendChild(star);
 }
 
-// Hujan love
-function createHeart(){
+// Hujan hati
+function createHeart() {
     const heart = document.createElement("div");
     heart.className = "floating";
-    heart.innerHTML = ["❤️","💗","💕","🌷"][Math.floor(Math.random()*4)];
-    heart.style.left = Math.random()*100+"vw";
-    heart.style.fontSize = (15+Math.random()*20)+"px";
-    heart.style.animationDuration = (4+Math.random()*4)+"s";
+    heart.innerHTML = ["❤️","💗","💕","🌷"][
+        Math.floor(Math.random() * 4)
+    ];
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (15 + Math.random() * 20) + "px";
+    heart.style.animationDuration = (4 + Math.random() * 4) + "s";
 
     document.body.appendChild(heart);
 
-    setTimeout(()=>heart.remove(),8000);
+    setTimeout(() => heart.remove(), 8000);
 }
 
-setInterval(createHeart,400);
+setInterval(createHeart, 400);
 
-// Surat
-function openLetter(){
-    document.getElementById("modal").style.display="flex";
+// Surat spesial
+function openLetter() {
+    document.getElementById("modal").style.display = "flex";
 }
 
-function closeLetter(){
-    document.getElementById("modal").style.display="none";
+function closeLetter() {
+    document.getElementById("modal").style.display = "none";
 }
 
-// Musik nada sederhana
-let audio;
-let timer;
-let playing = false;
-let index = 0;
-
-const notes = [
-261.63,329.63,392,329.63,
-293.66,349.23,440,349.23,
-261.63,329.63,392,523.25
-];
-
-function playNote(){
-    if(!playing) return;
-
-    const osc = audio.createOscillator();
-    const gain = audio.createGain();
-
-    osc.type="sine";
-    osc.frequency.value=notes[index%notes.length];
-
-    gain.gain.setValueAtTime(.0001,audio.currentTime);
-    gain.gain.exponentialRampToValueAtTime(.08,audio.currentTime+.1);
-    gain.gain.exponentialRampToValueAtTime(.0001,audio.currentTime+.7);
-
-    osc.connect(gain);
-    gain.connect(audio.destination);
-
-    osc.start();
-    osc.stop(audio.currentTime+.8);
-
-    index++;
-}
-
-// Musik YouTube Westlife
+// Musik Westlife dari YouTube
 let playing = false;
 
 function toggleMusic() {
+    const player = document.getElementById("musicPlayer");
+    const frame = document.getElementById("youtubeMusic");
     const btn = document.getElementById("musicBtn");
 
     if (!playing) {
-        document.getElementById("youtubeMusic").src =
+        player.style.display = "block";
+
+        frame.src =
             "https://www.youtube.com/embed/V_T277c9klU?autoplay=1";
 
         btn.innerHTML = "⏸️ Hentikan Musik";
         playing = true;
     } else {
-        document.getElementById("youtubeMusic").src = "";
+        frame.src = "";
+        player.style.display = "none";
+
         btn.innerHTML = "🎵 Putar Musik";
         playing = false;
-      <iframe
-    id="youtubeMusic"
-    width="1"
-    height="1"
-    src=""
-    allow="autoplay; encrypted-media">
-</iframe>
-</div>
-        }
-        }
+    }
 }
 
 </script>
