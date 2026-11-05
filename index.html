@@ -405,19 +405,24 @@ function playNote(){
     index++;
 }
 
-<div class="music-player">
-  <p>🎵 Our Special Song</p>
-  <iframe
-    width="280"
-    height="158"
-    src="https://www.youtube.com/embed/V_T277c9klU"
-    title="I Lay My Love on You - Westlife"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    allowfullscreen>
-  </iframe>
-</div>
-    }
+// Musik YouTube Westlife
+let playing = false;
+
+function toggleMusic() {
+    const btn = document.getElementById("musicBtn");
+
+    if (!playing) {
+        document.getElementById("youtubeMusic").src =
+            "https://www.youtube.com/embed/V_T277c9klU?autoplay=1";
+
+        btn.innerHTML = "⏸️ Hentikan Musik";
+        playing = true;
+    } else {
+        document.getElementById("youtubeMusic").src = "";
+        btn.innerHTML = "🎵 Putar Musik";
+        playing = false;
+        }
+        }
 }
 
 </script>
